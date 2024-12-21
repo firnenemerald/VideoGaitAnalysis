@@ -118,5 +118,74 @@ MATLAB environment
 - u3-17 ~ Resting tremor amplitude ~ rTamp_RUE [54] + rTamp_LUE [55] + rTamp_RLE [56] + rTamp_LLE [57] + rTamp_LJ [58]
 - u3-18 ~ Resting tremor constancy ~ rTcon [59]
 
+## Data Description
+### Healthy Controls (n=30)
+- Patient Information: PID, Name, Age, Sex (M=1, F=2), Height
+- Gait Parameters (total 24)
+```
+Step length (mean), Step length (cv), Step time (mean), Step time (cv), Step width (mean), Step width (cv),  
+Cadence, Velocity, Step length asymmetry, Arm swing asymmetry, Turning time (mean), Turning time (cv),  
+Turning step length (mean), Turning step length (cv), Turning step time (mean), Turning step time (cv),  
+Turning step width (mean), Turning step width (cv), Turning step number (mean), Turning step number (cv),  
+Turning cadence, Turning velocity, Anterior flexion angle, Dropped head angle
+```
+- UPDRS score: updrs p1, updrs p2, updrs p3
+- Duration: Duration
+### ePD Patients (n=35)
+- Patient Information: PID, Name, Age, Sex (M=1, F=2), Height `[1-5]`
+- Gait Parameters (total 24 parameters) `[6-29]`
+```
+Step length (mean), Step length (cv), Step time (mean), Step time (cv), Step width (mean), Step width (cv),  
+Cadence, Velocity, Step length asymmetry, Arm swing asymmetry, Turning time (mean), Turning time (cv),  
+Turning step length (mean), Turning step length (cv), Turning step time (mean), Turning step time (cv),  
+Turning step width (mean), Turning step width (cv), Turning step number (mean), Turning step number (cv),  
+Turning cadence, Turning velocity, Anterior flexion angle, Dropped head angle
+```
+- UPDRS score: updrs p1, updrs p2, updrs p3 `[30-32]`
+- Duration `[33]`
+- UPDRS subscores: u1-1~13, u2-1~13, u3-1~18, HY `[34-46, 47-59, 60-77]`
+- CIT PET data (total 69 ROIs) `[78-96, 97-115, 116-134, 135-146]`
+```
+Sd(b), C(b), Cda(b), Cva(b), Ct(b), Cb(b), P(b), Pda(b), Pva(b), Pdp(b), Pvp(b), GP(b), GPa(b), GPp(b), Sv(b), DRN(b), LC(b), SN(b), STN(b),  
+Sd(l), C(l), Cda(l), Cva(l), Ct(l), Cb(l), P(l), Pda(l), Pva(l), Pdp(l), Pvp(l), GP(l), GPa(l), GPp(l), Sv(l), DRN(l), LC(l), SN(l), STN(l),  
+Sd(r), C(r), Cda(r), Cva(r), Ct(r), Cb(r), P(r), Pda(r), Pva(r), Pdp(r), Pvp(r), GP(r), GPa(r), GPp(r), Sv(r), DRN(r), LC(r), SN(r), STN(r),  
+S_asym, C_asym, P_asym, PC_rat(b), CP_rat(b), apP_rat(b), PC_rat(l), CP_rat(l), apP_rat(l), PC_rat(r), CP_rat(r), apP_rat(r)
+```
+### aPD Patients, OFF (n=57)
+- Patient Information: PID, Name, Age, Sex (M=1, F=2), Height `[1-5]`
+- Gait Parameters (total 24 parameters) `[6-29]`
+```
+Step length (mean), Step length (cv), Step time (mean), Step time (cv), Step width (mean), Step width (cv),  
+Cadence, Velocity, Step length asymmetry, Arm swing asymmetry, Turning time (mean), Turning time (cv),  
+Turning step length (mean), Turning step length (cv), Turning step time (mean), Turning step time (cv),  
+Turning step width (mean), Turning step width (cv), Turning step number (mean), Turning step number (cv),  
+Turning cadence, Turning velocity, Anterior flexion angle, Dropped head angle
+```
+- UPDRS score: updrs p1, updrs p2, updrs p3 `[30-32]`
+- Duration `[33]`
+- LEDD `[34]`
+- UPDRS subscores: u1-1~4, u2-1~13, u3-1~11, HY `[35-38, 39-51, 52-62, 63]`
+- CIT PET data (total 69 ROIs) `[64-82, 83-101, 102-120, 121-132]`
+```
+Sd(b), C(b), Cda(b), Cva(b), Ct(b), Cb(b), P(b), Pda(b), Pva(b), Pdp(b), Pvp(b), GP(b), GPa(b), GPp(b), Sv(b), DRN(b), LC(b), SN(b), STN(b),  
+Sd(l), C(l), Cda(l), Cva(l), Ct(l), Cb(l), P(l), Pda(l), Pva(l), Pdp(l), Pvp(l), GP(l), GPa(l), GPp(l), Sv(l), DRN(l), LC(l), SN(l), STN(l),  
+Sd(r), C(r), Cda(r), Cva(r), Ct(r), Cb(r), P(r), Pda(r), Pva(r), Pdp(r), Pvp(r), GP(r), GPa(r), GPp(r), Sv(r), DRN(r), LC(r), SN(r), STN(r),  
+S_asym, C_asym, P_asym, PC_rat(b), CP_rat(b), apP_rat(b), PC_rat(l), CP_rat(l), apP_rat(l), PC_rat(r), CP_rat(r), apP_rat(r)
+```
+### aPD Patients, ON (n=57)
+- Patient Information: PID, Name, Age, Sex (M=1, F=2), Height `[1-5]`
+- Gait Parameters (total 24 parameters) `[6-29]`
+```
+Step length (mean), Step length (cv), Step time (mean), Step time (cv), Step width (mean), Step width (cv),  
+Cadence, Velocity, Step length asymmetry, Arm swing asymmetry, Turning time (mean), Turning time (cv),  
+Turning step length (mean), Turning step length (cv), Turning step time (mean), Turning step time (cv),  
+Turning step width (mean), Turning step width (cv), Turning step number (mean), Turning step number (cv),  
+Turning cadence, Turning velocity, Anterior flexion angle, Dropped head angle
+```
+- UPDRS score: updrs p1, updrs p2, updrs p3 `[30-32]`
+- Duration `[33]`
+- UPDRS subscores: u1-1~4, u2-1~13, u3-1~11, HY `[34-37, 38-50, 51-61, 62]`
+
 ## To-do
 - Addendum PD LEDD value (chart review)
+- aPD ON UPDRS recheck

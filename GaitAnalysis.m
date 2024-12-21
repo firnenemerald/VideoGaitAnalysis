@@ -29,16 +29,16 @@ if ~exist(saveDir, 'dir')
 end
 
 %% Import gait parameters
-[tdat, ngdat_p, ePD_updrs, ePD_citpet, aPD_ledd, aPDoff_updrs, aPD_citpet, aPDon_updrs] = GetParams();
+[tdat, ngdat_p, ePD_updrs, ePD_citpet, aPD_ledd, aPDoff_updrs, aPD_citpet] = GetParams();
 
 % Get each group's indices
 HC_idx = tdat(:, 1) == 1;
 RBD_idx = tdat(:, 1) == 2;
 ePD_idx = tdat(:, 1) == 3;
 aPDoff_idx = tdat(:, 1) == 4;
-aPDon_idx = tdat(:, 1) == 5;
-MSAC_idx = tdat(:, 1) == 6;
-MSACSc_idx = tdat(:, 1) == 7;
+% aPDon_idx = tdat(:, 1) == 5;
+% MSAC_idx = tdat(:, 1) == 6;
+% MSACSc_idx = tdat(:, 1) == 7;
 
 % Get age, sex, height, updrs data from tdat
 HC_age = tdat(HC_idx, 2); HC_sex = tdat(HC_idx, 3); HC_height = tdat(HC_idx, 4);
@@ -51,12 +51,12 @@ ePD_ut = ePD_u1 + ePD_u2 + ePD_u3; ePD_dur = tdat(ePD_idx, 32);
 aPDoff_age = tdat(aPDoff_idx, 2); aPDoff_sex = tdat(aPDoff_idx, 3); aPDoff_height = tdat(aPDoff_idx, 4);
 aPDoff_u1 = tdat(aPDoff_idx, 29); aPDoff_u2 = tdat(aPDoff_idx, 30); aPDoff_u3 = tdat(aPDoff_idx, 31);
 aPDoff_ut = aPDoff_u1 + aPDoff_u2 + aPDoff_u3; aPDoff_dur = tdat(aPDoff_idx, 32);
-aPDon_age = tdat(aPDon_idx, 2); aPDon_sex = tdat(aPDon_idx, 3); aPDon_height = tdat(aPDon_idx, 4);
-aPDon_u1 = tdat(aPDon_idx, 29); aPDon_u2 = tdat(aPDon_idx, 30); aPDon_u3 = tdat(aPDon_idx, 31);
-aPDon_ut = aPDon_u1 + aPDon_u2 + aPDon_u3;
-MSAC_age = tdat(MSAC_idx, 2); MSAC_sex = tdat(MSAC_idx, 3); MSAC_height = tdat(MSAC_idx, 4);
-MSAC_u1 = tdat(MSAC_idx, 29); MSAC_u2 = tdat(MSAC_idx, 30);
-MSAC_ut = MSAC_u1 + MSAC_u2; MSAC_dur = tdat(MSAC_idx, 32);
+% aPDon_age = tdat(aPDon_idx, 2); aPDon_sex = tdat(aPDon_idx, 3); aPDon_height = tdat(aPDon_idx, 4);
+% aPDon_u1 = tdat(aPDon_idx, 29); aPDon_u2 = tdat(aPDon_idx, 30); aPDon_u3 = tdat(aPDon_idx, 31);
+% aPDon_ut = aPDon_u1 + aPDon_u2 + aPDon_u3;
+% MSAC_age = tdat(MSAC_idx, 2); MSAC_sex = tdat(MSAC_idx, 3); MSAC_height = tdat(MSAC_idx, 4);
+% MSAC_u1 = tdat(MSAC_idx, 29); MSAC_u2 = tdat(MSAC_idx, 30);
+% MSAC_ut = MSAC_u1 + MSAC_u2; MSAC_dur = tdat(MSAC_idx, 32);
 
 %% Multivariate linear regression
 cngdat = GaitPatternMLR(tdat, ngdat_p);
@@ -64,23 +64,23 @@ cngdat_HC = cngdat(HC_idx, :);
 cngdat_RBD = cngdat(RBD_idx, :);
 cngdat_ePD = cngdat(ePD_idx, :);
 cngdat_aPDoff = cngdat(aPDoff_idx, :);
-cngdat_aPDon = cngdat(aPDon_idx, :);
-cngdat_MSAC = cngdat(MSAC_idx, :);
-cngdat_MSACSc = cngdat(MSACSc_idx, :);
+% cngdat_aPDon = cngdat(aPDon_idx, :);
+% cngdat_MSAC = cngdat(MSAC_idx, :);
+% cngdat_MSACSc = cngdat(MSACSc_idx, :);
 
 %============================%
 % Select groups for analysis %
-scoreGroup = [1, 4];         %
+scoreGroup = [1, 3];         %
 %============================%
 
 % Plot gait parameter heatmap
 %PlotGaitParamHeat(cngdat_HC, scoreGroup, saveDir);
 
 %% SSM-PCA and scoring
-[PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(tdat, cngdat, scoreGroup, saveDir, true);
+[PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(tdat, cngdat, scoreGroup, saveDir, false);
 
 % Plot covariate matrix and explained components
-PlotPCAProcess(C, explained, scoreGroup, saveDir);
+%PlotPCAProcess(C, explained, scoreGroup, saveDir);
 
 % Plot gait pattern bar graph
 PlotGaitPattern(GIS_Yz, scoreGroup, saveDir);
@@ -90,9 +90,9 @@ score_HC = cngdat_HC * GIS_Yz;
 score_RBD = cngdat_RBD * GIS_Yz;
 score_ePD = cngdat_ePD * GIS_Yz;
 score_aPDoff = cngdat_aPDoff * GIS_Yz;
-score_aPDon = cngdat_aPDon * GIS_Yz;
-score_MSAC = cngdat_MSAC * GIS_Yz;
-score_MSACSc = cngdat_MSACSc * GIS_Yz;
+% score_aPDon = cngdat_aPDon * GIS_Yz;
+% score_MSAC = cngdat_MSAC * GIS_Yz;
+% score_MSACSc = cngdat_MSACSc * GIS_Yz;
 
 % Normalize gait pattern score
 msHC = mean(score_HC);
@@ -101,15 +101,15 @@ score_HC = (score_HC - msHC)/ssHC;
 score_RBD = (score_RBD - msHC)/ssHC;
 score_ePD = (score_ePD - msHC)/ssHC;
 score_aPDoff = (score_aPDoff - msHC)/ssHC;
-score_aPDon = (score_aPDon - msHC)/ssHC;
-score_MSAC = (score_MSAC - msHC)/ssHC;
-score_MSACSc = (score_MSACSc - msHC)/ssHC;
+% score_aPDon = (score_aPDon - msHC)/ssHC;
+% score_MSAC = (score_MSAC - msHC)/ssHC;
+% score_MSACSc = (score_MSACSc - msHC)/ssHC;
 
 % Plot score vs covar graph (before and after regression)
 % PlotParameterRegression(tdat, ngdat_p, cngdat, GIS_Yz, 'height');
 
 % Plot and compare multiple group pattern score
-PlotPatternScore(tdat, cngdat, GIS_Yz, scoreGroup, saveDir);
+%PlotPatternScore(tdat, cngdat, GIS_Yz, scoreGroup, saveDir);
 
 % Plot and correlate score vs updrs
 %PlotUPDRSCorr(aPDoff_u2, score_aPDoff, scoreGroup, "aPD", "u2", saveDir);
