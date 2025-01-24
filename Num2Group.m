@@ -34,6 +34,12 @@ switch number
         groupName = "MSAC";
     case 7
         groupName = "MSAC";
+    case 8
+        groupName = "MSAC CIT low";
+    case 9
+        groupName = "MSAC CIT high";
+    case 10
+        groupName = "MSAC CIT lowint";
 end
 
 end

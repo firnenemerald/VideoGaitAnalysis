@@ -60,7 +60,7 @@ function [tdat, ngdat_p, ePD_updrs, ePD_citpet, aPD_ledd, aPDoff_updrs, aPD_citp
 %% Import raw data (gait extractor results)
 
 % Import HC_tdat: [Age, Sex, Height, 24 params, updrs p1,2,3 = 0, duration = 0]
-HC_data = readtable('data\HC_tdat.xlsx', 'VariableNamingRule', 'preserve');
+HC_data = readtable('data/HC_tdat.xlsx', 'VariableNamingRule', 'preserve');
 HC_numeric = HC_data{:, vartype('numeric')};
 HC_tdat = HC_numeric(:,2:32);
 
@@ -82,7 +82,7 @@ ePD_citpet = ePD_numeric(:, 78:146);
 aPDoff_data = readtable('data\aPDoff_tdat.xlsx', 'VariableNamingRule', 'preserve');
 aPDoff_numeric = aPDoff_data{:, vartype('numeric')};
 aPDoff_tdat = aPDoff_numeric(:, 2:32);
-aPDoff_tdat = aPDoff_tdat([1:54, 56:57], :); % Remove aPDoff 55th patient
+aPDoff_tdat = aPDoff_tdat([1:56], :); % Remove aPDoff 55th patient
 % Import aPD_ledd: [LEDD]
 aPD_ledd = aPDoff_numeric(:, 33);
 % Import aPDoff_updrs: [OLD UPDRS u1-1~4, u2-1~13, u3-1~11, HY]
@@ -98,16 +98,14 @@ aPD_citpet = aPDoff_numeric(:, 63:131);
 % % Import aPDon_updrs
 % aPDon_updrs = aPDon_numeric(:, 33:74);
 
-% % Import MSAC_tdat
-% % [PID, Name, Age, Sex, Height, 24 params, umsar1,2, null, duration]
-% MSAC_data = readtable('data\MSAC_tdat.xlsx', 'VariableNamingRule', 'preserve');
-% MSAC_numeric = MSAC_data{:, vartype('numeric')};
-% MSAC_tdat = MSAC_numeric(:, 2:32);
-% % Import MSACSc_tdat (group for MSAC scoring, total 39)
-% % [PID, Name, Age, Sex, Height, 24 params, umsar1,2, null, duration]
-% MSACSc_data = readtable('data\MSAC_tdat_39.xlsx', 'VariableNamingRule', 'preserve');
-% MSACSc_numeric = MSACSc_data{:, vartype('numeric')};
-% MSACSc_tdat = MSACSc_numeric(:, 2:32);
+% Import MSAC_tdat: [PID, Name, Age, Sex, Height, 24 params, umsar1,2, null, duration]
+MSAC_data = readtable('data\MSAC_tdat.xlsx', 'VariableNamingRule', 'preserve');
+MSAC_numeric = MSAC_data{:, vartype('numeric')};
+MSAC_tdat = MSAC_numeric(:, 2:32);
+% Import MSACSc_tdat (group for MSAC scoring): [PID, Name, Age, Sex, Height, 24 params, umsar1,2, null, duration]
+MSACSc_data = readtable('data\MSAC_tdat_39.xlsx', 'VariableNamingRule', 'preserve');
+MSACSc_numeric = MSACSc_data{:, vartype('numeric')};
+MSACSc_tdat = MSACSc_numeric(:, 2:32);
 
 % Structure data into one array: total data (tdat)
 HC = [1*ones(size(HC_tdat, 1), 1), HC_tdat];
@@ -115,9 +113,9 @@ RBD = [2*ones(size(RBD_tdat, 1), 1), RBD_tdat];
 ePD = [3*ones(size(ePD_tdat, 1), 1), ePD_tdat];
 aPDoff = [4*ones(size(aPDoff_tdat, 1), 1), aPDoff_tdat];
 % aPDon = [5*ones(size(aPDon_tdat, 1), 1), aPDon_tdat];
-% MSAC = [6*ones(size(MSAC_tdat, 1), 1), MSAC_tdat];
-% MSACSc = [7*ones(size(MSACSc_tdat, 1), 1), MSACSc_tdat];
-tdat = [HC; RBD; ePD; aPDoff];
+MSAC = [6*ones(size(MSAC_tdat, 1), 1), MSAC_tdat];
+MSACSc = [7*ones(size(MSACSc_tdat, 1), 1), MSACSc_tdat];
+tdat = [HC; RBD; ePD; aPDoff; MSAC; MSACSc];
 
 % Get gait parameters (gdat) and partial gait parameters (gdat_p)
 % Partial gait parameters are acquired by omitting cv parameters

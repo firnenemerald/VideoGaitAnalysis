@@ -49,31 +49,32 @@ MSACSc_ngdat = ngdat(MSACSc_idx, :);
 coefficients = cell(size(ngdat, 2), 1);
 for idx = 1:size(ngdat, 2)
     independent_var = HC_ngdat(:, idx); % Individual gait parameter as independant variables
-    dependent_vars = [HC_age, HC_height]; % Age and Height as dependant variables
+    dependent_vars = [HC_age, HC_height, HC_sex]; % Age, Height, and Sex as dependant variables
     [b, ~, ~] = glmfit(dependent_vars, independent_var, 'normal');
     coefficients{idx} = b;
 end
 
 % Correct each group by HC linear regression
-HC_cngdat = SubgroupRegression(HC_ngdat, coefficients, HC_age, HC_height);
-RBD_cngdat = SubgroupRegression(RBD_ngdat, coefficients, RBD_age, RBD_height);
-ePD_cngdat = SubgroupRegression(ePD_ngdat, coefficients, ePD_age, ePD_height);
-aPDoff_cngdat = SubgroupRegression(aPDoff_ngdat, coefficients, aPDoff_age, aPDoff_height);
-aPDon_cngdat = SubgroupRegression(aPDon_ngdat, coefficients, aPDon_age, aPDon_height);
-MSAC_cngdat = SubgroupRegression(MSAC_ngdat, coefficients, MSAC_age, MSAC_height);
-MSACSc_cngdat = SubgroupRegression(MSACSc_ngdat, coefficients, MSACSc_age, MSACSc_height);
+HC_cngdat = SubgroupRegression(HC_ngdat, coefficients, HC_age, HC_height, HC_sex);
+RBD_cngdat = SubgroupRegression(RBD_ngdat, coefficients, RBD_age, RBD_height, RBD_sex);
+ePD_cngdat = SubgroupRegression(ePD_ngdat, coefficients, ePD_age, ePD_height, ePD_sex);
+aPDoff_cngdat = SubgroupRegression(aPDoff_ngdat, coefficients, aPDoff_age, aPDoff_height, aPDoff_sex);
+aPDon_cngdat = SubgroupRegression(aPDon_ngdat, coefficients, aPDon_age, aPDon_height, aPDon_sex);
+MSAC_cngdat = SubgroupRegression(MSAC_ngdat, coefficients, MSAC_age, MSAC_height, MSAC_sex);
+MSACSc_cngdat = SubgroupRegression(MSACSc_ngdat, coefficients, MSACSc_age, MSACSc_height, MSACSc_sex);
 
 cngdat = [HC_cngdat; RBD_cngdat; ePD_cngdat; aPDoff_cngdat; aPDon_cngdat; MSAC_cngdat; MSACSc_cngdat];
 
 end
 
-function [cngdat] = SubgroupRegression(ngdat, coefficients, age, height)
+function [cngdat] = SubgroupRegression(ngdat, coefficients, age, height, sex)
 cngdat = zeros(size(ngdat));
 for idx = 1:size(ngdat, 2)
     b1 = coefficients{idx}(1);
     b2 = coefficients{idx}(2);
     b3 = coefficients{idx}(3);
-    correction = b1 + b2*age + b3*height;
+    b4 = coefficients{idx}(4);
+    correction = b1 + b2*age + b3*height + b4*sex;
     cngdat(:, idx) = ngdat(:, idx) - correction;
 end
 

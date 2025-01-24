@@ -16,23 +16,17 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-function [PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(tdat, cngdat, groups, saveDir, saveFlag)
+function [PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(groupX, groupY, groups, saveDir, saveFlag)
 
-groupX = groups(1);
-groupY = groups(2);
-
-X_idx = tdat(:, 1) == groupX;
-Y_idx = tdat(:, 1) == groupY;
-
-X_name = Num2Group(groupX);
-Y_name = Num2Group(groupY);
-
+% Get group names
+X_name = Num2Group(groups(1));
+Y_name = Num2Group(groups(2));
 expTitle = strcat(X_name, {' '}, 'vs', {' '}, Y_name);
 
 % Training data and index
-PCA_train = [cngdat(X_idx, :); cngdat(Y_idx, :)];
-PCA_index = [zeros(sum(X_idx), 1); ones(sum(Y_idx), 1)];
-PCA_size = sum(X_idx) + sum(Y_idx);
+PCA_train = [groupX; groupY];
+PCA_index = [zeros(size(groupX, 1), 1); ones(size(groupY, 1), 1)];
+PCA_size = size(groupX, 1) + size(groupY, 1);
 
 % Normalize for each row data
 PCA_trainz = zeros(size(PCA_train));

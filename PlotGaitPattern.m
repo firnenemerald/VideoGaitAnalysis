@@ -24,6 +24,12 @@ expTitle = strcat(X_name, {' '}, 'vs', {' '}, Y_name);
 
 paramLength = length(GIS_Yz);
 switch paramLength
+    case 2 % Head variables
+        bar_xlabel = {'ant. flx. angle', 'dropped head angle'};
+    case 7 % Turn variables
+        bar_xlabel = {'turning time', 'turning step length', 'turning step time', 'turning step width', 'turning step number', 'turning cadence', 'turning velocity'};
+    case 9 % Walk variables
+        bar_xlabel = {'step length', 'step length var', 'step time', 'step time var', 'step width', 'cadence', 'velocity', 'step length asymmetry', 'arm swing asymmetry'};
     case 18 % Partial score without step width var
         bar_xlabel = {'step length', 'step length var', 'step time', 'step time var', 'step width', 'cadence', 'velocity', 'step length asymmetry', 'arm swing asymmetry', 'turning time', 'turning step length', 'turning step time', 'turning step width', 'turning step number', 'turning cadence', 'turning velocity', 'ant. flx. angle', 'dropped head angle'};
     case 19 % Partial score
@@ -41,10 +47,10 @@ bar_handle = bar(GIS_Yz);
 bar_handle.FaceColor = 'flat';
 
 bar_colors = zeros(paramLength, 3);
-disp_text_y = 0.15;
-eva_purple = [164/256,112/256,194/256];
-eva_green = [166/256,218/256,81/256];
-eva_gray = [95/256,96/256,98/256];
+% disp_text_y = 0.15;
+% eva_purple = [164/256,112/256,194/256];
+% eva_green = [166/256,218/256,81/256];
+% eva_gray = [95/256,96/256,98/256];
 for idx = 1:paramLength
     if GIS_Yz(idx) > 1
         bar_handle.CData(idx, :) = [1, 0, 0];
