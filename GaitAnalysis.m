@@ -78,11 +78,12 @@ cngdat_MSAC_CITlowint = [cngdat_MSAC_CITlow; cngdat_MSAC_CITint];
 % Select groups for analysis %
 scoreGroup = [1, 6];         %
 %============================%
-groupX = cngdat(tdat(:, 1) == scoreGroup(1), 17:18);
-groupY = cngdat(tdat(:, 1) == scoreGroup(2), 17:18);
+groupX = cngdat(tdat(:, 1) == scoreGroup(1), :);
+groupY = cngdat(tdat(:, 1) == scoreGroup(2), :);
 
 % Plot gait parameter heatmap
 %PlotGaitParamHeat(cngdat_HC, scoreGroup, saveDir);
+%PlotGaitParamHeat(cngdat_MSAC, scoreGroup, saveDir);
 
 % scoreGroup = [8, 9];
 % groupX = cngdat_MSAC_CITlow;

@@ -35,4 +35,14 @@ yline(5);
 saveas(pcae, strcat(saveDir, gName, '_PCAexplained'), 'svg');
 saveas(pcae, strcat(saveDir, gName, '_PCAexplained'), 'png');
 
+% Print the percentage of variance explained by PC1, PC2, PC3, PC4, and PC5
+explainedPCs = explained(1:5);
+disp('Percentage of variance explained by PC1, PC2, PC3, PC4, and PC5:');
+disp(explainedPCs);
+
+% Calculate and display the sum of the explained variance by the first 5 PCs
+sumExplained = sum(explainedPCs);
+disp('Sum of the percentage of variance explained by PC1 to PC5:');
+disp(sumExplained);
+
 end

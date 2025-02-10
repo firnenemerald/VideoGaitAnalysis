@@ -112,6 +112,10 @@ else
     disp('e has no elements');
 end
 
+% Display the combination of principal components used for the best model
+best_combination = cell2mat(CCC(mind));
+disp(['Best combination of principal components: PC' num2str(best_combination)]);
+
 GIS_Yz = zscore(GIS_Y);
 
 end
