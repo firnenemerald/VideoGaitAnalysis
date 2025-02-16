@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: © 2025 Chanhee Jeong <chanheejeong@snu.ac.kr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import re
 import pandas as pd
 
@@ -7,16 +10,10 @@ def Subp_attention(attention_text):
     attention_patient_text = attention_text.split('세')[0]
     attention_normal_text = attention_text.split('세')[1].split('1.')[0]
 
-    print("[주의력] Trail Making Test (TMT)")
-
-    Subp_attention_patient(attention_patient_text)
+    [part_a_time, part_a_error, part_b_time, part_b_error, part_c_time, part_c_error] = Subp_attention_patient(attention_patient_text)
     # Subp_attention_normal(attention_normal_text)
 
-    # Print reading
-    # print("(판독)", attention_reading_text)
-    print("==============================")
-
-    return None
+    return [part_a_time, part_a_error, part_b_time, part_b_error, part_c_time, part_c_error]
 
 def Subp_attention_patient(attention_patient_text):
     # Find and extract patient's attention score A, B, C
@@ -39,21 +36,30 @@ def Subp_attention_patient(attention_patient_text):
     if part_a_match:
         part_a_time = int(part_a_match.group(1))
         part_a_error = int(part_a_match.group(2))
+    else:
+        part_a_time = 0
+        part_a_error = 0
     part_b_match = re.search(tmt_pattern, attention_B)
     if part_b_match:
         part_b_time = int(part_b_match.group(1))
         part_b_error = int(part_b_match.group(2))
+    else:
+        part_b_time = 0
+        part_b_error = 0
     part_c_match = re.search(tmt_pattern, attention_C)
     if part_c_match:
         part_c_time = int(part_c_match.group(1))
         part_c_error = int(part_c_match.group(2))
+    else:
+        part_c_time = 0
+        part_c_error = 0
     
     # Print patient's attention score
-    print("> Part A: 시간", part_a_time, "초, 오류수", part_a_error, "개")
-    print("> Part B: 시간", part_b_time, "초, 오류수", part_b_error, "개")
-    print("> Part C: 시간", part_c_time, "초, 오류수", part_c_error, "개")
+    # print("> Part A: 시간", part_a_time, "초, 오류수", part_a_error, "개")
+    # print("> Part B: 시간", part_b_time, "초, 오류수", part_b_error, "개")
+    # print("> Part C: 시간", part_c_time, "초, 오류수", part_c_error, "개")
 
-    return None
+    return [part_a_time, part_a_error, part_b_time, part_b_error, part_c_time, part_c_error]
 
 def Subp_attention_normal(attention_normal_text):
     # Find and extract normal score
@@ -80,9 +86,9 @@ def Subp_attention_normal(attention_normal_text):
         partn_c_error = float(partn_c_match.group(2))
 
     # Print normal attention score
-    print("(참고)", attention_normal_group, ":")
-    print("> Part A: 시간", partn_a_time, "초, 오류수:", partn_a_error, "개")
-    print("> Part B: 시간", partn_b_time, "초, 오류수:", partn_b_error, "개")
-    print("> Part C: 시간", partn_c_time, "초, 오류수:", partn_c_error, "개")
+    # print("(참고)", attention_normal_group, ":")
+    # print("> Part A: 시간", partn_a_time, "초, 오류수:", partn_a_error, "개")
+    # print("> Part B: 시간", partn_b_time, "초, 오류수:", partn_b_error, "개")
+    # print("> Part C: 시간", partn_c_time, "초, 오류수:", partn_c_error, "개")
 
     return None

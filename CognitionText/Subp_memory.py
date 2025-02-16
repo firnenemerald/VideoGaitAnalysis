@@ -11,13 +11,10 @@ def Subp_memory(memory_text):
     memory_reading_text = memory_text.split("교육")[1].split("MQ")[0].strip()
     memory_MQ = memory_text.split("MQ")[1].strip()
 
-    print("[기억력] Linguistic & Non-linguistic Memory Test")
+    [trial_scores, ka_delayed_recall, ka_delayed_recogn, kc_drawing, kc_immediate_recall, kc_delayed_recall] = Subp_memory_patient(memory_patient_text)
+    [mq_score] = Subp_memory_MQ(memory_MQ)
 
-    Subp_memory_patient(memory_patient_text)
-    Subp_memory_MQ(memory_MQ)
-    print("==============================")
-
-    return None
+    return [trial_scores, ka_delayed_recall, ka_delayed_recogn, kc_drawing, kc_immediate_recall, kc_delayed_recall, mq_score]
 
 def Subp_memory_patient(memory_patient_text):
 
@@ -27,8 +24,8 @@ def Subp_memory_patient(memory_patient_text):
     trial_scores = [int(m[1]) for m in trial_matches]
 
     # Print patient's memory trials
-    for i, score in enumerate(trial_scores):
-        print(f"K-A 시행 {i+1}: {score}")
+    # for i, score in enumerate(trial_scores):
+    #     print(f"K-A 시행 {i+1}: {score}")
 
     # Split patient's memory text into trial and rest
     split_index = memory_patient_text.find("K-A 지연회상:")
@@ -42,8 +39,8 @@ def Subp_memory_patient(memory_patient_text):
     ka_delayed_recogn = float(ka_delayed_recogn_match.group(1)) if ka_delayed_recogn_match else None
 
     # Print delayed recall and delayed recognition
-    print(f"K-A 지연회상: {ka_delayed_recall}")
-    print(f"K-A 지연재인: {ka_delayed_recogn}")
+    # print(f"K-A 지연회상: {ka_delayed_recall}")
+    # print(f"K-A 지연재인: {ka_delayed_recogn}")
 
     # Extract other memory scores
     kc_drawing_match = re.search(r"그리기[:\s]*(\d+(?:\.\d+)?)\s*K-C", memory_patient_rest)
@@ -54,11 +51,11 @@ def Subp_memory_patient(memory_patient_text):
     kc_delayed_recall = float(kc_delayed_recall_match.group(1)) if kc_delayed_recall_match else None
 
     # Print other memory scores
-    print(f"K-C 그리기: {kc_drawing}")
-    print(f"K-C 즉시회상: {kc_immediate_recall}")
-    print(f"K-C 지연회상: {kc_delayed_recall}")
+    # print(f"K-C 그리기: {kc_drawing}")
+    # print(f"K-C 즉시회상: {kc_immediate_recall}")
+    # print(f"K-C 지연회상: {kc_delayed_recall}")
 
-    return None
+    return [trial_scores, ka_delayed_recall, ka_delayed_recogn, kc_drawing, kc_immediate_recall, kc_delayed_recall]
 
 def Subp_memory_MQ(memory_MQ):
 
@@ -68,6 +65,6 @@ def Subp_memory_MQ(memory_MQ):
     mq_score = int(mq_match.group(1)) if mq_match else None
 
     # Print memory MQ
-    print(f"MQ score: {mq_score}", "점")
+    # print(f"MQ score: {mq_score}", "점")
 
-    return None
+    return [mq_score]

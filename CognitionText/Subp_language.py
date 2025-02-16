@@ -9,15 +9,10 @@ def Subp_language(language_text):
     language_patient_text = language_text.split('세')[0]
     language_normal_text = language_text.split('세')[1]
 
-    print("[언어] Korean Boston Naming Test (KBNT)")
-
-    Subp_language_patient(language_patient_text)
+    [language_score] = Subp_language_patient(language_patient_text)
     # Subp_language_normal(language_normal_text)
 
-    # Print reading
-    print("==============================")
-
-    return None
+    return [language_score]
 
 def Subp_language_patient(language_patient_text):
     # Extract patient's language score
@@ -25,9 +20,9 @@ def Subp_language_patient(language_patient_text):
     language_score = int(language_pattern_match.group(1)) if language_pattern_match else None
 
     # Print patient's language score
-    print("> 점수:", language_score)
+    # print("> 점수:", language_score)
 
-    return None
+    return [language_score]
 
 def Subp_language_normal(language_normal_text):
     # Find and extract normal language group and score
