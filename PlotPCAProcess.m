@@ -18,22 +18,23 @@
 
 function [] = PlotPCAProcess(C, explained, scoreGroup, saveDir)
 
-gName = Num2Group(scoreGroup(2));
+X_name = Num2Group(scoreGroup(1));
+Y_name = Num2Group(scoreGroup(2));
 
 pcac = figure;
 imagesc(C);
 clim([-10, 15]);
 colormap(redblue);
 colorbar
-saveas(pcac, strcat(saveDir, gName, '_PCAcovmat'), 'svg');
-saveas(pcac, strcat(saveDir, gName, '_PCAcovmat'), 'png');
+saveas(pcac, strcat(saveDir, Y_name, '_vs_', X_name, '_PCAcovmat'), 'svg');
+saveas(pcac, strcat(saveDir, Y_name, '_vs_', X_name, '_PCAcovmat'), 'png');
 
 pcae = figure;
 bar(explained);
 xlim([0, 20]);
 yline(5);
-saveas(pcae, strcat(saveDir, gName, '_PCAexplained'), 'svg');
-saveas(pcae, strcat(saveDir, gName, '_PCAexplained'), 'png');
+saveas(pcae, strcat(saveDir, Y_name, '_vs_', X_name, '_PCAexplained'), 'svg');
+saveas(pcae, strcat(saveDir, Y_name, '_vs_', X_name, '_PCAexplained'), 'png');
 
 % Print the percentage of variance explained by PC1, PC2, PC3, PC4, and PC5
 explainedPCs = explained(1:5);

@@ -1,20 +1,7 @@
-%% PlotPatternScore.m (ver 1.0.240823)
-% Plot and compare gait pattern scores
+%% Plot and compare multiple gait pattern score distributions
 
-% Copyright (C) 2024 Jung Hwan Shin, Pil-ung Lee, Chanhee Jeong
-
-% This program is free software: you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or
-% (at your option) any later version.
-
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-
-% You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <https://www.gnu.org/licenses/>.
+% SPDX-FileCopyrightText: © 2025 Chanhee Jeong <chanheejeong@snu.ac.kr> Pil-ung Lee <vlfdnd221@naver.com>, Jung Hwan Shin <neo2003@snu.ac.kr>
+% SPDX-License-Identifier: GPL-3.0-or-later
 
 function [] = PlotPatternScore(tdat, cngdat, GIS_Yz, groups, saveDir)
 
@@ -28,7 +15,7 @@ RBD_idx = tdat(:, 1) == 2;
 ePD_idx = tdat(:, 1) == 3;
 aPDoff_idx = tdat(:, 1) == 4;
 % aPDon_idx = tdat(:, 1) == 5;
-% MSACSc_idx = tdat(:, 1) == 7;
+MSAC_idx = tdat(:, 1) == 6
 
 % Get each group's corrected normalized gait parameters
 cngdat_HC = cngdat(HC_idx, :);
@@ -36,7 +23,7 @@ cngdat_RBD = cngdat(RBD_idx, :);
 cngdat_ePD = cngdat(ePD_idx, :);
 cngdat_aPDoff = cngdat(aPDoff_idx, :);
 % cngdat_aPDon = cngdat(aPDon_idx, :);
-% cngdat_MSACSc = cngdat(MSACSc_idx, :);
+cngdat_MSAC = cngdat(MSAC_idx, :);
 
 % Calculate each group's gait pattern score
 score_HC = cngdat_HC * GIS_Yz;
@@ -44,7 +31,7 @@ score_RBD = cngdat_RBD * GIS_Yz;
 score_ePD = cngdat_ePD * GIS_Yz;
 score_aPDoff = cngdat_aPDoff * GIS_Yz;
 % score_aPDon = cngdat_aPDon * GIS_Yz;
-% score_MSACSc = cngdat_MSACSc * GIS_Yz;
+score_MSAC = cngdat_MSAC * GIS_Yz;
 
 % Normalize gait pattern score
 msHC = mean(score_HC);
@@ -54,7 +41,7 @@ score_RBD = (score_RBD - msHC)/ssHC;
 score_ePD = (score_ePD - msHC)/ssHC;
 score_aPDoff = (score_aPDoff - msHC)/ssHC;
 % score_aPDon = (score_aPDon - msHC)/ssHC;
-% score_MSACSc = (score_MSACSc - msHC)/ssHC;
+score_MSAC = (score_MSAC - msHC)/ssHC;
 
 group_HC = cell(sum(HC_idx), 1);
 group_HC(:, 1) = cellstr('HC');
@@ -66,8 +53,8 @@ group_aPDoff = cell(sum(aPDoff_idx), 1);
 group_aPDoff(:, 1) = cellstr('aPDoff');
 % group_aPDon = cell(sum(aPDon_idx), 1);
 % group_aPDon(:, 1) = cellstr('aPDon');
-% group_MSACSc = cell(sum(MSACSc_idx), 1);
-% group_MSACSc(:, 1) = cellstr('MSAC');
+group_MSAC = cell(sum(MSAC_idx), 1);
+group_MSAC(:, 1) = cellstr('MSAC');
 
 % Calculate mean and standard error values
 mean_HC = mean(score_HC);
@@ -80,8 +67,8 @@ mean_aPDoff = mean(score_aPDoff);
 se_aPDoff = std(score_aPDoff)/sqrt(length(score_aPDoff));
 % mean_aPDon = mean(score_aPDon);
 % se_aPDon = std(score_aPDon)/sqrt(length(score_aPDon));
-% mean_MSACSc = mean(score_MSACSc);
-% se_MSACSc = std(score_MSACSc)/sqrt(length(score_MSACSc));
+mean_MSAC = mean(score_MSAC);
+se_MSAC = std(score_MSAC)/sqrt(length(score_MSAC));
 
 %% Statistical analysis (ANOVA post-hoc Tukey)
 score = [score_HC; score_RBD; score_ePD; score_aPDoff]; %%%%% CHANGE HERE %%%%%
@@ -99,7 +86,7 @@ tbl.("Group B") = gnames(tbl.("Group B"))
 barComp = figure;
 hold on
 
-bar_groups = {'HC', 'RBD', 'ePD', 'aPDoff'}; %%%%% CHANGE HERE %%%%%
+bar_groups = {'HC', 'RBD', 'ePD', 'aPD'}; %%%%% CHANGE HERE %%%%%
 bar_means = [mean_HC, mean_RBD, mean_ePD, mean_aPDoff]; %%%%% CHANGE HERE %%%%%
 bar_ses = [se_HC, se_RBD, se_ePD, se_aPDoff]; %%%%% CHANGE HERE %%%%%
 
@@ -116,8 +103,7 @@ pointJitterAmount = 0.12;
 scatter(ones(size(score_HC)) * find(barX == 'HC'), score_HC, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
 scatter(ones(size(score_RBD)) * find(barX == 'RBD'), score_RBD, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
 scatter(ones(size(score_ePD)) * find(barX == 'ePD'), score_ePD, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
-scatter(ones(size(score_aPDoff)) * find(barX == 'aPDoff'), score_aPDoff, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
-% scatter(ones(size(score_MSACSc)) * find(barX == 'MSAC'), score_MSACSc, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
+scatter(ones(size(score_aPDoff)) * find(barX == 'aPD'), score_aPDoff, 15, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceColor', pointFaceColor, 'jitter', 'on', 'jitterAmount', pointJitterAmount);
 
 % Plot errorbar
 errorbar(barX, bar_means, bar_ses, 'LineStyle', 'none', 'LineWidth', 2, 'Color', 'black');
@@ -130,7 +116,7 @@ ylim([-4, 10]);
 
 hold off
 
-%saveas(barComp, strcat(saveDir, Y_name, '_groupcomp'), 'svg');
-%saveas(barComp, strcat(saveDir, Y_name, '_groupcomp'), 'png');
+saveas(barComp, strcat(saveDir, Y_name, '_vs_', X_name, '_groupcomparison'), 'svg');
+saveas(barComp, strcat(saveDir, Y_name, '_vs_', X_name, '_groupcomparison'), 'png');
 
 end

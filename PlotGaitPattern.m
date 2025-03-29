@@ -89,9 +89,8 @@ xticklabels(bar_xlabel);
 ylim([-2.0, 2.5]);
 hold off
 
-saveas(figbar, strcat(saveDir, Y_name, '_pattern'), 'svg');
-saveas(figbar, strcat(saveDir, Y_name, '_pattern'), 'png');
-save(strcat(saveDir, Y_name, '_GIS_Yz.mat'), 'GIS_Yz');
+saveas(figbar, strcat(saveDir, Y_name, '_vs_', X_name, '_pattern'), 'svg');
+saveas(figbar, strcat(saveDir, Y_name, '_vs_', X_name, '_pattern'), 'png');
 
 %% Plot heatmap representing gait pattern
 % Create custom colormap with white for the range [-1, 1] and gradient outside
@@ -125,7 +124,7 @@ title(expTitle);
 xlabel('Gait parameters');
 %ylabel('Z-score');
 
-saveas(figheat, strcat(saveDir, Y_name, '_patternHeat'), 'svg');
-saveas(figheat, strcat(saveDir, Y_name, '_patternHeat'), 'png');
+saveas(figheat, strcat(saveDir, Y_name, '_vs_', X_name, '_patternHeat'), 'svg');
+saveas(figheat, strcat(saveDir, Y_name, '_vs_', X_name, '_patternHeat'), 'png');
 
 end

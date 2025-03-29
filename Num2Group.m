@@ -31,15 +31,7 @@ switch number
     case 5
         groupName = "aPDon";
     case 6
-        groupName = "MSAC";
-    case 7
-        groupName = "MSAC";
-    case 8
-        groupName = "MSAC CIT low";
-    case 9
-        groupName = "MSAC CIT high";
-    case 10
-        groupName = "MSAC CIT lowint";
+        groupName = "MSA-C";
 end
 
 end

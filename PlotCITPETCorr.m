@@ -22,6 +22,7 @@ citpet_nanIdx = any(isnan(citpet), 2);
 score(citpet_nanIdx, :) = [];
 citpet(citpet_nanIdx, :) = [];
 
+groupName = Num2Group(scoreGroup(1));
 patternName = Num2Group(scoreGroup(2));
 
 % Interesting roi = Pdp(b), Pdp(l), Pdp(r), apP_rat(b), LC(b)
@@ -60,11 +61,9 @@ end
 
 citData = citpet(:, columnNum);
 
-figure
+fig = figure;
 hold on
 scatter(citData, score, 20, 'filled', 'MarkerFaceColor', 'b');
-
-grid on
 title('CIT PET roi value vs gait score');
 xlabel(strcat('roi = ', {' '}, roiName, {' '}, '(', latName, ')'), "Interpreter", "none");
 ylabel(strcat(patternName, {' '}, 'gait pattern score'), "Interpreter", "none");
@@ -78,6 +77,9 @@ plot(xfit, yfit, '-b', 'Linewidth', 2);
 xlimit = xlim; ylimit = ylim;
 text(xlimit(2), ylimit(2), sprintf('R = %.2f, p = %.5f', r, p), 'HorizontalAlignment', 'right');
 hold off
+
+saveas(fig, strcat(saveDir, 'P_', patternName, '_G_', groupName, '_', roiName, '_', latName, '_CITPETCorr'), 'svg');
+saveas(fig, strcat(saveDir, 'P_', patternName, '_G_', groupName, '_', roiName, '_', latName, '_CITPETCorr'), 'png');
 
 end
 

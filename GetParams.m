@@ -1,31 +1,18 @@
-%% GetParams.m
-% Import gait parameters from gait extractor result .csv files
+%% Function for importing gait parameters from gait extractor result .csv files
 
-% Copyright (C) 2024 Chanhee Jeong, Pil-ung Lee, Jung Hwan Shin
+% SPDX-FileCopyrightText: © 2025 Chanhee Jeong <chanheejeong@snu.ac.kr> Pil-ung Lee <vlfdnd221@naver.com>, Jung Hwan Shin <neo2003@snu.ac.kr>
+% SPDX-License-Identifier: GPL-3.0-or-later
 
-% This program is free software: you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or
-% (at your option) any later version.
-
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-
-% You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-%% Data description and coding
-% HC_tdat = 30 healthy controls
-% RBD_tdat = 60 RBD patients
-% ePD_tdat = 35 early PD patients
-% aPDoff_tdat = 33 medication off advanced PD patients
-% aPDon_tdat = 24 medication on advanced PD patients
+%% Data description
+% HC_tdat.xlsx = 30 healthy controls [PID, Name, Age, Sex, Height, 24 params, updrs p1,2,3 = 0, duration = 0, u1_1-13, u2_1-13, u3_1-18 (18), HY]
+% RBD_tdat.xlsx = 58 RBD patients [PID, Name, Age, Sex, Height, 24 params, updrs p1,2,3, duration = 0, u1_1-13, u2_1-13, u3_1-18 (33), HY]
+% ePD_tdat.xlsx = 35 early PD patients [PID, Name, Age, Sex, Height, 24 params, updrs p1,2,3, duration, u1_1-13, u2_1-13, u3_1-18 (18), HY, CIT-PET ROI 1-69 (69)]
+% aPDoff_tdat.xlsx = 56 medication OFF advanced PD patients [PID, Name, Age, Sex, Height, 24 params, updrs p1,2,3, duration, LEDD, u1_1-4, u2_1-13, u3_1-11 (11), HY, CIT-PET ROI 1-69 (69)]
+% aPDon_tdat.xlsx = 24 medication ON advanced PD patients [PID, Name
 
 % Sex 1 = Male, 2 = Female
 
-% Walking variables (10)
+% Forward gait parameters (8)
 % 1 - step length (mean)
 % 2 - step length (cv)
 % 3 - step time (mean)
@@ -34,6 +21,8 @@
 % 6 - step width (cv) -> omit in partial score
 % 7 - cadence
 % 8 - velocity
+
+% Asymmetry parameters (2)
 % 9 - step length asymmetry
 % 10 - arm swing asymmetry
 

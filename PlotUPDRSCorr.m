@@ -31,6 +31,11 @@ switch updrsName
         updrsPart = "UPDRS total";
 end
 
+% Remove NaN values
+nanIdx = isnan(updrs) | isnan(score);
+updrs(nanIdx) = [];
+score(nanIdx) = [];
+
 figu = figure;
 hold on
 
@@ -42,14 +47,14 @@ scatter(updrs, score, 20, 'o', 'MarkerEdgeColor', pointEdgeColor, 'MarkerFaceCol
 title(groupName)
 xlabel(strcat(updrsPart, '{ }', 'score'));
 ylabel(strcat(patternName, '{ }', 'gait pattern Z-score'));
-switch groupName
-    case 'aPD'
-        xlim([2, 35]);
-        ylim([0, 10]);
-    case 'ePD'
-        xlim([0, 55]);
-        ylim([0, 4.5]);
-end
+% switch groupName
+%     case 'aPD'
+%         xlim([2, 35]);
+%         ylim([0, 10]);
+%     case 'ePD'
+%         xlim([0, 55]);
+%         ylim([0, 4.5]);
+% end
 % updrs_unique = unique(updrs);
 % xticks(updrs_unique);
 % xticklabels(string(updrs_unique));

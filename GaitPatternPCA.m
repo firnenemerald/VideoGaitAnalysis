@@ -1,22 +1,9 @@
-%% GaitPatternPCA.m (ver 1.0.240821)
-% Principal component analysis between two groups
+%% Principal component analysis between two groups
 
-% Copyright (C) 2024 Jung Hwan Shin, Pil-ung Lee, Chanhee Jeong
+% SPDX-FileCopyrightText: © 2025 Chanhee Jeong <chanheejeong@snu.ac.kr> Pil-ung Lee <vlfdnd221@naver.com>, Jung Hwan Shin <neo2003@snu.ac.kr>
+% SPDX-License-Identifier: GPL-3.0-or-later
 
-% This program is free software: you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or
-% (at your option) any later version.
-
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-
-% You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-function [PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(groupX, groupY, groups, saveDir, saveFlag)
+function [PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(groupX, groupY, groups, saveDir, doSave)
 
 % Get group names
 X_name = Num2Group(groups(1));
@@ -85,17 +72,17 @@ lscore = mdl.Fitted.Probability;
 e = mdl.Coefficients.Estimate(2:end);
 AIC = mdl.ModelCriterion.AICc;
 
-% Plot and save ROC curve to file if saveFlag is true
-if saveFlag == true
+% Plot and save ROC curve to file if doSave is true
+if doSave == true
     figROC = figure;
     plot(X, Y);
     title(expTitle, "Interpreter", "none");
-    aucText = sprintf('%s\nAUC = %.2f', expTitle, AUC);
+    aucText = sprintf('%s\nAUC = %.4f', expTitle, AUC);
     text(0.5, 0.5, aucText, 'FontSize', 16, 'HorizontalAlignment', 'center');
     pbaspect([1, 1, 1]);
-    
-    saveas(figROC, strcat(saveDir, Y_name, '_PCArocurve'), 'svg');
-    saveas(figROC, strcat(saveDir, Y_name, '_PCArocurve'), 'png');
+
+    saveas(figROC, strcat(saveDir, Y_name, '_vs_', X_name, '_ROCcurve'), 'svg');
+    saveas(figROC, strcat(saveDir, Y_name, '_vs_', X_name, '_ROCcurve'), 'png');
 end
 
 num_e = length(e);

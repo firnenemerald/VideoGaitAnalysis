@@ -16,12 +16,10 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-function [] = PlotGaitParamHeat(cngdat, scoreGroup, saveDir)
+function [] = PlotGaitParamHeat(cngdat, cohortName, saveDir, doSave)
 
-gName = Num2Group(scoreGroup(2));
-
-gph = figure;
-imagesc([cngdat]);
+fig = figure;
+imagesc(cngdat);
 %yline(size(cngdat_aPDoff, 1)+0.5, "LineWidth", 2, "Color", [0 0 0], "Alpha", 1);
 %yline(size(cngdat_aPDoff, 1)+size(cngdat_HC, 1)+0.5, "LineWidth", 2, "Color", [0 0 0], "Alpha", 1);
 clim([-3, 3]);
@@ -29,7 +27,9 @@ colormap(redblue)
 colorbar
 axis off
 
-saveas(gph, strcat(saveDir, gName, '_GaitParamHeat'), 'svg');
-saveas(gph, strcat(saveDir, gName, '_GaitParamHeat'), 'png');
+if doSave
+    saveas(fig, strcat(saveDir, cohortName, '_GaitParamHeat'), 'svg');
+    saveas(fig, strcat(saveDir, cohortName, '_GaitParamHeat'), 'png');
+end
 
 end

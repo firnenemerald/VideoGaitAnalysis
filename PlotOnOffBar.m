@@ -1,27 +1,9 @@
-%% PlotOnOffBar.m (ver 1.0.240831)
-% Plot custom bar graph to visualize data
+%% Plot custom bar graph to visualize data
 
-% Copyright (C) 2024 Chanhee Jeong
-
-% This program is free software: you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or
-% (at your option) any later version.
-
-% This program is distributed in the hope that it will be useful,
-% but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-% GNU General Public License for more details.
-
-% You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <https://www.gnu.org/licenses/>.
+% SPDX-FileCopyrightText: © 2025 Chanhee Jeong <chanheejeong@snu.ac.kr> Pil-ung Lee <vlfdnd221@naver.com>, Jung Hwan Shin <neo2003@snu.ac.kr>
+% SPDX-License-Identifier: GPL-3.0-or-later
 
 function [] = PlotOnOffBar(aPDoff_concat, aPDon_concat, aPD_ledd, updrsName, saveDir)
-
-% Eliminate last patient data
-aPDoff_concat = aPDoff_concat(1:end-1, :);
-aPDon_concat = aPDon_concat(1:end-1, :);
-aPD_ledd = aPD_ledd(1:end-1, :);
 
 updrsPart = "UPDRS part 1";
 aPDoff_con = aPDoff_concat(:, [1, 2]);
