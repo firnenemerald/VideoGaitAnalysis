@@ -194,13 +194,13 @@ groupY = cngdat(tdat(:, 1) == scoreGroup(2), :);
 % PlotGaitParamHeat(cngdat_aPDoff, "aPD", saveDir, true);
 
 %% Result: SSM-PCA and visualization (AOC curve, Covariate matrix, Explained bar graph) [figure]
-[PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(groupX, groupY, scoreGroup, saveDir, false);
+[PCA_eigen, e, GIS_Yz, C, explained] = GaitPatternPCA(groupX, groupY, scoreGroup, saveDir, true);
 
 % Plot covariate matrix and explained components
-% PlotPCAProcess(C, explained, scoreGroup, saveDir);
+PlotPCAProcess(C, explained, scoreGroup, saveDir);
 
 %% Result: Gait pattern and visualization (pattern bar graph) [figure]
-% PlotGaitPattern(GIS_Yz, scoreGroup, saveDir);
+PlotGaitPattern(GIS_Yz, scoreGroup, saveDir);
 
 %% Calculate each group's gait pattern score
 score_HC = cngdat_HC * GIS_Yz;
@@ -237,7 +237,7 @@ score_MSAC = (score_MSAC - msHC)/ssHC;
 
 %% Result: Gait pattern score - UPDRS part3 individual correlation (scatter plot) [figure]
 % PlotUPDRSIndivCorr(aPDoff_updrs, score_aPDoff, scoreGroup, "aPD", "u3", saveDir);
-PlotUPDRSIndivCorr(ePD_updrs, score_ePD, scoreGroup, "ePD", "u3", saveDir);
+% PlotUPDRSIndivCorr(ePD_updrs, score_ePD, scoreGroup, "ePD", "u3", saveDir);
 
 %% Result: Gait pattern score - LEDD correlation (scatter plot) [figure]
 % PlotLEDDCorr(score_aPDoff, aPD_ledd, scoreGroup, "aPD", saveDir);
